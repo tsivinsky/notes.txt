@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,9 +17,20 @@ func main() {
 		})
 	})
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = ":5000"
-	}
+	port := getPortAddr(":5000")
 	r.Run(port)
+}
+
+func getPortAddr(fallbackPort string) string {
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = fallbackPort
+	}
+
+	if !strings.HasPrefix(port, ":") {
+		port = ":" + port
+	}
+
+	return port
 }
