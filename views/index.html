@@ -4,18 +4,43 @@
     <title>notes.txt</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-      *,
-      *::before,
-      *::after {
-        font-family: monospace;
-      }
-    </style>
+    <link rel="stylesheet" href="/static/default.css" />
   </head>
   <body>
     <div class="container">
       <h1>notes.txt</h1>
-      <p>{{.message}}</p>
+      <p>Hello, {{.email}}</p>
+
+      <a href="/logout">Log out</a>
+
+      <form
+        action="/notes"
+        method="post"
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          margin-top: 10px;
+        "
+      >
+        <input type="text" name="title" placeholder="Your awesome title" />
+        <textarea
+          name="body"
+          cols="60"
+          rows="10"
+          placeholder="Your awesome note"
+        ></textarea>
+        <button type="submit">Create note</button>
+      </form>
+
+      <div style="margin-top: 10px">
+        {{range .notes}}
+        <div style="border: 1px solid; padding: 5px; margin-bottom: 10px">
+          <h2>{{.Title}}</h2>
+          <div>{{.Body}}</div>
+        </div>
+        {{end}}
+      </div>
     </div>
   </body>
 </html>
